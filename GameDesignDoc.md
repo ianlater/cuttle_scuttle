@@ -1,89 +1,43 @@
-# Game Design Document
-This is a place holder for your game design document. You are advised to write your document in [Markdown](http://daringfireball.net/projects/markdown/) and the following section will show you how to write a document using Markdown markup.
 
-Alternativley, you can write your document in plain text if you wish.
+The player plays as a cuttlefish going to save his girlfriend from a chinese 
+restaurant. He starts out at sea, and goes into the harbor and then the city 
+during the game(the three levels with various forms of enemies for each level).
 
-----
+The game is a sidescroller where the cuttlefish is always swimming forward.
+However, the cuttlefish can be moved about onscreen by the W,A,S,D. 
 
-## Markdown
-Markdown is a human-readable structured plain text format that is used to convert text into HTML. GitHub automatically renders Markdown into HTML.
+At sea, the player faces dolphins and whales. 
 
-This is a crash course on how to use Markdown. The following section will show you the plain text used to generate the document shown in the rendering section.
+  *Dolphins attack the player by seeking the player and biting him.
 
-### Code
+  *Whales do not seek, but are large obstacles on the screen that must be dodged
+  *or they will push the character off screen.
 
-```
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
+  *There will be little schools of fish that can appear and swim around for brief
+  *periods of time before swimming away. The player can hypnotize these schools by
+  *holding down the right mouse button and shoot them at enemies by aiming with the
+  *mouse and shooting with left mouse button.
 
-You can also write in **bold** or _italics_. You can also ~~strike through~~ or write inline `Code Segments`
+  *There are also schools of pirannahs that can be hypnotized and deployed by
+  *hitting 'x'. When deployed they scatter and hurt four the enemies on screen.
 
->Blockquotes are done as such.
+  *Crabs will appear at random and scuttle across the bottom of the screen and can 
+  *be eaten for more health.
 
-Just make sure to separate paragraphs with an emptyline. 
-Otherwise, they are considered in the same paragraph.
+  *In the harbor and city, fisherman are the main enemies. They appear randomly at 
+  *the top of the screen and have fishing lines in the water with hooks that move
+  *up and down. If the cuttlefish is caught(collides with the hooks), then the
+  *player loses. 
 
-You link to [Google](https://www.google.com) as such and lists are written has follows:
-  1. First you indent with two empty spaces.
-  1. Then, you use:
-    * `1.` to signal an ordered (i.e. numbered) list, or
-    * `*`, `-`, `+` to represent an unordered list.
-      1. Make sure to maintain indentation
-      1. As it is used to identify sub-lists
-  1. Numbering and symboles don't matter as they are auto-generated later.
+The player earns points constantly as long as he is not hit. If he is hit,
+then there is a deduction(score can be negative). The player can get score
+multipliers for killing enemies which end as soon as the character is hit.
+There are no lives, but instead a health bar. If the health runs out or the
+cuttlefish is caught, the game is over, the cuttlefish is dead, his lover served
+up in chinatown, and the player must start from the beggining as a new 
+cuttlefish.
 
-Tables are pretty easy to make:
+The menus and button interface will be as follows:
+![Menus/Game](menuslayouts.jpg "Menus Layouts")
 
-| Tables        | Are           | Easy          |
-| ------------- |:-------------:| -------------:|
-| left-aligned  | centered      | right-aligned |
-| header are    | bolded and    | centered      |
-| zebra stripes | are neat      | 1             |
-
-
-Images are added inline by using the following syntax
-![alt text](http://octodex.github.com/images/Professortocat_v2.png "Image Title")
-```
-
-----
-
-### Rendering
-This section shows the rendering of the plain text above.
-
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
-
-You can also write in **bold** or _italics_. You can also ~~strike through~~ or write inline `Code Segments`
-
->Blockquotes are done as such.
-
-Just make sure to separate paragraphs with an emptyline. 
-Otherwise, they are considered in the same paragraph.
-
-You link to [Google](https://www.google.com) as such and lists are written has follows:
-  1. First you indent with two empty spaces.
-  1. Then, you use:
-    * `1.` to signal an ordered (i.e. numbered) list, or
-    * `*`, `-`, `+` to represent an unordered list.
-      1. Make sure to maintain indentation
-      1. As it is used to identify sub-lists
-  1. Numbering and symboles don't matter as they are auto-generated later.
-
-Tables are pretty easy to make:
-
-| Tables        | Are           | Easy          |
-| ------------- |:-------------:| -------------:|
-| left-aligned  | centered      | right-aligned |
-| header are    | bolded and    | centered      |
-| zebra stripes | are neat      | 1             |
-
-
-Images are added inline by using the following syntax
-![alt text](http://octodex.github.com/images/Professortocat_v2.png "Image Title")
 
