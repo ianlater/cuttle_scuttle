@@ -4,7 +4,8 @@
 #include <QGraphicsRectItem>
 #include <qapplication.h>
 #include "cuttle.h"
-
+#include <iostream>
+#include "graphicwindow.h"
 
 /** MainWindow class is the class that operates as a main method
  * and contains and controls all 
@@ -13,31 +14,35 @@ MainWindow::MainWindow()  {
 
 
     scene = new QGraphicsScene();
-    view = new QGraphicsView( scene );
-    setFocus();
+    view = new GraphicWindow( scene,this );
+
     int sizeMod=3;
     view->setFixedSize( WINDOW_MAX_X*sizeMod, WINDOW_MAX_Y*sizeMod );
-    view->setWindowTitle( "Tile Puzzle");
+    view->setWindowTitle( "Cuttle Scuttle");
+
     bounds=new QRectF(scene->sceneRect());
-    
+     
+    timer = new QTimer(this);
+    timer->setInterval(5);
+    timer->start();
     
     cuttlePos=new QPointF(20,20);
     cuttle=new Cuttle(cuttlePos,this);
     scene->addItem(cuttle);
     
-
     
-    timer = new QTimer(this);
-    timer->setInterval(5);
-    timer->start();
+   
     
-    mainVLayout=new QVBoxLayout();
-    view->setLayout(mainVLayout);
+    //mainVLayout=new QVBoxLayout();
+    //view->setLayout(mainVLayout);
 
+
+   // grabKeyboard();
 } 
 
    /** Passed to main(), displays the GUI*/
 void MainWindow::show() {
+
     view->show();
 }
      /** Destructor. Removes scene and view*/
@@ -49,9 +54,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::keyPressEvent(QKeyEvent* e){
-  //QWidget::keyPressEvent(e);
-  int v=1;
-  switch(e->key()){
+
+  int v=50;
+  switch(e->key()){ 
   case Qt::Key_W:
     cuttle->setYVel(v);
   case Qt::Key_A:
@@ -59,9 +64,21 @@ void MainWindow::keyPressEvent(QKeyEvent* e){
   case Qt::Key_S:
     cuttle->setYVel(-v);
   case Qt::Key_D:
-    cuttle->setXVel(v);
-  //case Qt::Key_Space:
-  
+    cuttle->setXVel(v);  
   }
+}
+void MainWindow::keyReleaseEvent(QKeyEvent* e){
+ switch(e->key()){
+  case Qt::Key_W:
+    cuttle->setYVel(0);
+  case Qt::Key_A:
+    cuttle->setXVel(0);
+  case Qt::Key_S:
+    cuttle->setYVel(0);
+  case Qt::Key_D:
+    cuttle->setXVel(0);
+ }   
+
+
 }
 
