@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+*.cpp~
+*.h~
+*.exe
+moc_*
