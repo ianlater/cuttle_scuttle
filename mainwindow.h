@@ -23,8 +23,8 @@
 
 class GraphicWindow;
 
-#define WINDOW_MAX_X 250
-#define WINDOW_MAX_Y 250
+#define WINDOW_MAX_X 1000
+#define WINDOW_MAX_Y 600
 /** MainWindow class is the class that operates as a main method
  * and contains and controls everything.
  */
@@ -43,6 +43,8 @@ public:
     QRectF* get_bounds(){return bounds;}    
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
+    void mousePressEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent* e);
 private:
     /** The graphics scene*/
     QGraphicsScene *scene;
@@ -50,13 +52,20 @@ private:
     GraphicWindow* view;
     /*Main QVBoxLayout. Organizes fields and buttons and display*/
     QVBoxLayout *mainVLayout;
+    QHBoxLayout* topHLayout;
     Cuttle* cuttle;
     QPointF* cuttlePos;
-
+    QPushButton* pause;
     QTimer* timer;
     QRectF* bounds;
+    std::vector<Thing*> things;
+    int level;
+    QPixmap* defaultBMP;
+    bool hypnosis;
 public slots:
-
+  void animate();
+  void move();
+  void populate();
 
 };
 

@@ -11,6 +11,12 @@ void GraphicWindow::keyPressEvent(QKeyEvent* e){
 }
 void GraphicWindow::keyReleaseEvent(QKeyEvent* e){
   w_->keyReleaseEvent(e);
-
-
 }
+void GraphicWindow::mousePressEvent(QMouseEvent* e){
+   w_->mousePressEvent(e);
+}
+void GraphicWindow::mouseReleaseEvent(QMouseEvent* e){
+   w_->mouseReleaseEvent(e);
+}
+
+
