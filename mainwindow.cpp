@@ -25,7 +25,6 @@ MainWindow::MainWindow()  {
     view->setFixedSize( WINDOW_MAX_X*sizeMod+20, WINDOW_MAX_Y*sizeMod+20 );
     view->setWindowTitle( "Cuttle Scuttle");
     scene->setSceneRect(0,0,WINDOW_MAX_X*sizeMod-10, WINDOW_MAX_Y*sizeMod);
-    bounds=new QRectF(scene->sceneRect());
      
     timer = new QTimer(this);
     timer->setInterval(5);
@@ -80,7 +79,9 @@ MainWindow::~MainWindow()
     delete scene;
     delete view;
 }
-
+    /** handles a key being pressed
+         * @param e is instance of the key event
+         */    
 void MainWindow::keyPressEvent(QKeyEvent* e){
 
   int v=50;
@@ -99,6 +100,9 @@ void MainWindow::keyPressEvent(QKeyEvent* e){
     break;
   }
 }
+    /** handles a key being releaseds
+     * @param e is instance of the key event
+     */    
 void MainWindow::keyReleaseEvent(QKeyEvent* e){
  switch(e->key()){
   case Qt::Key_W:
@@ -115,6 +119,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent* e){
     break;
  }   
 }
+/** handles pressing of mouse buttons and their corrosponding actions
+ *  in terms of the game mechanics
+ * @param e is instance of the mouse event
+ */
 void MainWindow::mousePressEvent(QMouseEvent* e){
    if(e->button()==Qt::RightButton){
      hypnosis=true;
@@ -132,6 +140,9 @@ void MainWindow::mousePressEvent(QMouseEvent* e){
      
    }
 }
+/** handles mouse buttons being released
+     * @param e is instance of the mouse event
+     */
 void MainWindow::mouseReleaseEvent(QMouseEvent* e){
    if(e->button()==Qt::RightButton){
      hypnosis=false;
@@ -139,6 +150,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent* e){
      firing=false;
    }
 }
+  /** moves all the Things and helps handle collisions and deaths*/
 void MainWindow::move(){
   for(unsigned int i=0;i<things.size();i++){
     if(things[i]->collidesWithItem(cuttle)){
@@ -188,15 +200,14 @@ void MainWindow::move(){
     else{ cuttle->death=0;}
   
 }
-
+  /** animates all the Things*/
 void MainWindow::animate(){
   for(unsigned int i=0;i<things.size();i++){
     things[i]->animate();
   }
 }
+  /** Populates the game with Thing items, and updates level*/
 void MainWindow::populate(){
-  
- 
  if(mod<2){
  if(level%(5000/mod)==0){
 
@@ -243,25 +254,26 @@ void MainWindow::populate(){
  level++;
  if(level%10000==0) mod++;
 }
-
+  /** pauses or resumes game*/
 void MainWindow::pausePressed(){
    if(started){
      if(timer->isActive()) timer->stop();
       else timer->start();
    }
 }
+  /** starts game*/
 void MainWindow::startPressed(){
    started=true;
    health->setText(cuttle->getHealth());
    timer->start();
 }
-
+/** stops game and spams game over*/
 void MainWindow::lose(){
   timer->stop();
   gameOver=new QLabel("GAME  OVER");  gameOver->setScaledContents(true);
   mainVLayout->addWidget(gameOver);
 }
-
+    /** returns score in QString format for qlabel score*/
 QString MainWindow::getScore(){
     QString s("SCORE: ");
     s.append(QString::number(points));

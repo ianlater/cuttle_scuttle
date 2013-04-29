@@ -35,7 +35,9 @@ public:
   QString getHealth();
   int death;
 private:
+  /** vector of pixmaps for animation*/
   std::vector<QPixmap*> state;
+  /** for modulating animation speed*/
   unsigned int count;
   /** reference to mainwindows timer: for movement*/
   QTimer* timer_;

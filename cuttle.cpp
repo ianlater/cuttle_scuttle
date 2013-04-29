@@ -27,7 +27,7 @@ Cuttle::Cuttle(QPointF* pos,MainWindow* w)
   health=100;
   invincible=false;
   cooldown=25;
-  caught=false;
+  
 }
 
 
