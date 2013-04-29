@@ -2,6 +2,7 @@
 #define FISH_H
 
 #include "thing.h"
+#include "cuttle.h"
 
 class BFish : public Thing{
 public:
@@ -9,12 +10,18 @@ public:
   int isType(){return 2;}
   int* getVel();
   QPainterPath shape() const;
+  void hypnotize(Cuttle*);
 private:
   void move();
   void animate();
   std::vector<QPixmap*> state;
-  int vx;
-  int vy;
+  double vx;
+  double vy;
+  bool hypnotized;
+  Cuttle* myCuttle;
+  QPoint* target_;
+  bool fired;
+  bool targetFixed;
 
 };
 

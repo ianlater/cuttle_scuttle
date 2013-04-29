@@ -55,17 +55,32 @@ private:
     QHBoxLayout* topHLayout;
     Cuttle* cuttle;
     QPointF* cuttlePos;
-    QPushButton* pause;
     QTimer* timer;
     QRectF* bounds;
     std::vector<Thing*> things;
     int level;
     QPixmap* defaultBMP;
     bool hypnosis;
+    bool firing;
+    QPoint* target;
+    QPushButton* start;    
+    QPushButton* pause;
+    QPushButton* exit;
+    bool started;
+    QLabel* health;
+    QLabel* gameOver;
+    QLabel* score;
+    int points;
+    void lose();
+    QString getScore();
+    int multiplier;
+    int mod;
 public slots:
   void animate();
   void move();
   void populate();
+  void pausePressed();
+  void startPressed();
 
 };
 

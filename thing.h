@@ -2,6 +2,7 @@
 #define THING_H
 #include <QGraphicsPixmapItem>
 
+class Cuttle;
 class Thing: public QGraphicsPixmapItem
 {
 public:
@@ -11,6 +12,8 @@ int death;
 virtual int isType()=0;
 virtual void move() = 0; 
 virtual int* getVel()=0;
+/** Some things can be hypnotized by the cuttle fish*/
+virtual void hypnotize(Cuttle*){}
 /** virtual because different things may have different states of animation*/
 virtual void animate()=0;
 private: //Every thing has a origin and a velocity–maybe 0

@@ -1,6 +1,7 @@
 #include "bfish.h"
 #include <QGraphicsScene>
 #include <iostream>
+#include <cmath>
 
 BFish::BFish(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
 {
@@ -14,15 +15,58 @@ BFish::BFish(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
     setPixmap(*t);
     state.push_back(t);
   }
+  setZValue(rand()%6+45);
+  hypnotized=fired=targetFixed=false;
 
 }
 
-
+void BFish::hypnotize(Cuttle* c){
+  hypnotized=true;
+  myCuttle=c;
+  setParentItem(c);
+  if(fired) fired=targetFixed=false;
+}
 void BFish::move(){
  if(++slower%20==0){
-  if(slower%80==0 && rand()%7==0) vy=-vy;
-  if(y()+vy<=(scene()->sceneRect()).top()) vy=-vy;
-  setPos(x()-vx,y()+vy);
+  if(slower%80==0 && rand()%7==0 && !fired) vy=-vy;
+  if(hypnotized){ 
+    QRectF bounds=myCuttle->boundingRect();
+    if(zValue()<0){
+      hypnotized=false;
+      target_=myCuttle->getTarget();
+      setParentItem(0);
+      setPos(myCuttle->x()+rand()%50,myCuttle->y()-rand()%35);
+      fired=true;
+      setZValue(rand()%6+45);
+    }
+    else {
+      if(x()-vx<=bounds.left()) vx=-vx;
+      else if(x()-vx>=bounds.right()) vx=-vx;
+      if(y()+vy<=bounds.top()) vy=-vy;
+      else if(y()+vy>=bounds.bottom()) vy=-vy;
+      setPos(myCuttle->x()+rand()%50,myCuttle->y()-rand()%35);
+      setPos(mapFromParent(myCuttle->pos()));
+      setZValue(rand()%6+45);
+    }
+  }
+  if(!fired){
+    if(y()+vy<=(scene()->sceneRect()).top()) vy=-vy;
+    setPos(x()-vx,y()+vy);
+  }
+  else{
+    if(!targetFixed){
+      vx=(target_->x()-x()); vy=(target_->y()-y());
+      targetFixed=true;
+    }    
+    setPos(x()+vx/4,y()+vy/4);
+    QList<QGraphicsItem *> collisions=scene()->items(pos());
+    for(int i=0;i<collisions.size();i++){
+      if(collisions[i]->zValue()==5){
+         collisions[i]->setZValue(-1);
+         break;
+      }
+    }
+  }
  }
 }
 
@@ -34,7 +78,8 @@ void BFish::animate(){
 }
 
 int* BFish::getVel(){
-  int vel[2]={vx,vy};
+  int* vel=new int(2);
+  vel[0]=vx;vel[1]=vy;
   return vel;
 }
 
@@ -44,3 +89,6 @@ QPainterPath BFish::shape() const
      path.addEllipse(QRectF(state[0]->rect()));
      return path;
 }
+
+
+
