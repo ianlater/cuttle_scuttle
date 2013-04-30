@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <vector>
 #include <QListWidget>
+#include <QLineEdit>
 #include <QKeyEvent>
 #include <QPointF>
 #include <QRectF>
@@ -100,7 +101,12 @@ private:
     int multiplier;
     /** modifies level difficulty*/
     int mod;
-    
+      /** takes and displays player name*/
+     QFormLayout* player;
+     /** diisplays "Name"*/
+     QLabel* name;
+     /** where player enters name*/
+     QLineEdit* nameField;
     /** returns score in QString format for qlabel score*/
     QString getScore();
      /** stops game and spams game over*/    

@@ -54,6 +54,12 @@ MainWindow::MainWindow()  {
     topHLayout->addWidget(health);
     score=new QLabel("SCORE: ");
     topHLayout->addWidget(score);
+    player=new QFormLayout();
+    name=new QLabel("Name");
+    nameField=new QLineEdit();
+    player->addRow(name,nameField);
+    topHLayout->addLayout(player);
+    
          
     pause->resize(40,20);
     mainVLayout->addLayout(topHLayout);
