@@ -2,11 +2,11 @@
 #include "mainwindow.h"
 #include <iostream>
 
-Cuttle::Cuttle(){
-  QPixmap* t=new QPixmap("cuttle/c1.bmp");
-  setPixmap(*t);
-  state.push_back(t);
-}
+
+/** creates cuttle at position with reference to main window
+ * @param pos is location of cuttle
+ * @param w is reference to mainwindow
+ */
 Cuttle::Cuttle(QPointF* pos,MainWindow* w)
 {
   for(int i=1;i<6;i++){
@@ -27,18 +27,18 @@ Cuttle::Cuttle(QPointF* pos,MainWindow* w)
   health=100;
   invincible=false;
   cooldown=25;
-  
+  caught=false;
 }
 
 
- 
+ /** animates cuttle*/
 void Cuttle::animate(){
  if(++fps%20==0){
   if(++count>=state.size()) count=0;
   setPixmap(*(state[count]));
  }
 }
- 
+ /** moves cuttle*/
 void Cuttle::move(){
   if(++slower%20==0){
   if(bounded){ 
@@ -60,27 +60,30 @@ void Cuttle::move(){
   }
   }
 }
-
+/** gives cuttle whales rightward velocity*/
 void Cuttle::hitByWhale(int* vel){
   if(velocity_[0]>0) velocity_[0]=0;
   velocity_[0]=-vel[0];  
 
 }
+/** gives cuttle hooks velocity and sets catch to true*/
 void Cuttle::catchHook(int* vel){
   velocity_[0]=-vel[0];  
   velocity_[1]=-vel[1];
   caught=true;  
 }
-
+/** decrements health by @param damage*/
 void Cuttle::hurt(int dammage){
   health-=dammage;
   if(health<=0) death+=500000;
 }
+
+/** increments health(up to 100) by @param life*/
 void Cuttle::heal(int life){
    if(health+life>100) health=100;
    else health+=life;
 }
-
+/** returns QString of health*/
 QString Cuttle::getHealth(){
     QString h("Health: ");
     h.append(QString::number(health));

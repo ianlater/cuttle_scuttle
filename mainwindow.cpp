@@ -25,7 +25,8 @@ MainWindow::MainWindow()  {
     view->setFixedSize( WINDOW_MAX_X*sizeMod+20, WINDOW_MAX_Y*sizeMod+20 );
     view->setWindowTitle( "Cuttle Scuttle");
     scene->setSceneRect(0,0,WINDOW_MAX_X*sizeMod-10, WINDOW_MAX_Y*sizeMod);
-     
+    bounds=new QRectF(scene->sceneRect());
+    
     timer = new QTimer(this);
     timer->setInterval(5);
     connect(timer,SIGNAL(timeout()),this,SLOT(move()));
