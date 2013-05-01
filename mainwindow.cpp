@@ -215,7 +215,7 @@ void MainWindow::animate(){
 }
   /** Populates the game with Thing items, and updates level*/
 void MainWindow::populate(){
- if(mod<2){
+
  if(level%(5000/mod)==0){
 
      Whale* whale=new Whale(defaultBMP, WINDOW_MAX_X+250,rand()%(WINDOW_MAX_Y-50)+20);
@@ -223,14 +223,21 @@ void MainWindow::populate(){
      things.push_back(whale);
   
  }
- }
+ 
  if(level%(1000/mod)==0){
    Dolphin* dolphin=new Dolphin(defaultBMP, WINDOW_MAX_X+250,rand()%WINDOW_MAX_Y);
    scene->addItem(dolphin);
    dolphin->giveTarget(cuttle);
    things.push_back(dolphin);
+   
    for(int i=0;i<mod;i++){
-     dolphin->increaseAttackSpeed();
+     if(mod<4) dolphin->increaseAttackSpeed();
+     else{
+        Dolphin* bonus=new Dolphin(defaultBMP, WINDOW_MAX_X+250,rand()%WINDOW_MAX_Y);
+   	scene->addItem(bonus);
+  	bonus->giveTarget(cuttle);
+ 	things.push_back(bonus);
+     }
    }
  }
  
@@ -245,13 +252,13 @@ void MainWindow::populate(){
   }
  }
 
- if(level%(1500/mod)==0){
+ if(level%(1500)==0){
     Crab* crab=new Crab(defaultBMP, WINDOW_MAX_X+250,WINDOW_MAX_Y-25);
     scene->addItem(crab);
     things.push_back(crab);
  }
  if(level%(3500/mod)==0){
-   Fisher* fisher=new Fisher(defaultBMP, WINDOW_MAX_X+250,rand()%115+20*mod);
+   Fisher* fisher=new Fisher(defaultBMP, WINDOW_MAX_X+250,rand()%115+30*mod);
    scene->addItem(fisher);
    things.push_back(fisher);
    for(int i=0;i<mod;i++){
