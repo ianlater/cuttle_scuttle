@@ -7,19 +7,12 @@ Crab::Crab(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
   vx=rand()%5+5;
   vy=4;
   for(int i=1;i<4;i++){
-    QString fn="crab/cr";fn.append(QString::number(i));fn.append(".bmp");
+    QString fn="crab/cr";fn.append(QString::number(i));fn.append(".png");
     QPixmap* t=new QPixmap(fn);
     t=new QPixmap(t->scaled(30,30));
     setPixmap(*t);
     state.push_back(t);
-  }/*
-  for(int i=1;i<6;i++){
-    QString fn="cuttle/c";fn.append(QString::number(i));fn.append(".bmp");
-    QPixmap p(fn);
-    QPixmap*
-    setPixmap(*t);
-    state.push_back(t);
-  }*/
+  }
 
 }
 /** is eaten, kills crab*/

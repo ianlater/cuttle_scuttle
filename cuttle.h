@@ -30,13 +30,17 @@ public:
   /** returns target*/
   QPoint* getTarget(){ return target;}
   /** sets bounded to true*/
-  void bind(){bounded=true;}
+  void bind(){bounded=true;caught=false;}
   /** cuttle is caught by fisher*/
   void catchHook(int*);
   /** sets bounded and caught to false*/
   void unbind(){caught=bounded=false;}
   /** returns invincible*/
   bool isInvincible(){return invincible;}
+  /** sets hypnotizing to true*/
+  void startHypnotizing(){hypnotizing=true;}
+  /** sets hypnotizing to false*/
+  void stopHypnotizing(){hypnotizing=false;}
   /** sets invincible to true*/
   void becomesInvincible(){invincible=true;}
   /** gets dammaged certain amout*/
@@ -74,6 +78,8 @@ private:
   bool caught;
   /** point that is targeted*/
   QPoint* target;
+  /** for hypnosis animation*/
+  bool hypnotizing;
 public slots:
   /** movement*/
   void move();

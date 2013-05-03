@@ -8,7 +8,7 @@ Whale::Whale(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
   vx=rand()%5+5;
   vy=0;
   for(int i=1;i<9;i++){
-    QString fn="whale/w";fn.append(QString::number(i));fn.append(".bmp");
+    QString fn="whale/w";fn.append(QString::number(i));fn.append(".png");
     QPixmap* t=new QPixmap(fn);    
     t=new QPixmap(t->scaled(800,350));
     setPixmap(*t);

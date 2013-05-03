@@ -9,8 +9,8 @@
  */
 Cuttle::Cuttle(QPointF* pos,MainWindow* w)
 {
-  for(int i=1;i<6;i++){
-    QString fn="cuttle/c";fn.append(QString::number(i));fn.append(".bmp");
+  for(int i=1;i<11;i++){
+    QString fn="cuttle/c";fn.append(QString::number(i));fn.append(".png");
     QPixmap* t=new QPixmap(fn);
     setPixmap(*t);
     state.push_back(t);
@@ -28,14 +28,21 @@ Cuttle::Cuttle(QPointF* pos,MainWindow* w)
   invincible=false;
   cooldown=25;
   caught=false;
+  hypnotizing=false;
 }
 
 
  /** animates cuttle*/
 void Cuttle::animate(){
  if(++fps%20==0){
-  if(++count>=state.size()) count=0;
-  setPixmap(*(state[count]));
+  if(hypnotizing){
+    if(++count<6||count>9)count=6;
+    setPixmap(*(state[count]));
+  }
+  else{
+    if(++count>=6) count=0;
+    setPixmap(*(state[count]));
+  }
  }
 }
  /** moves cuttle*/

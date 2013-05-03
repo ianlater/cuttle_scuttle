@@ -8,7 +8,7 @@ Fisher::Fisher(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
   vx=rand()%5+5;
   vy=5;
  for(int i=1;i<2;i++){
-    QString fn="fisher/h";fn.append(QString::number(i));fn.append(".bmp");
+    QString fn="fisher/h";fn.append(QString::number(i));fn.append(".png");
     QPixmap* t=new QPixmap(fn);
     t=new QPixmap(t->scaled(15,15));
     setPixmap(*t);

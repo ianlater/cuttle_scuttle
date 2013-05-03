@@ -67,8 +67,8 @@ MainWindow::MainWindow()  {
 
     level=points=0;
     multiplier=mod=1;
-    defaultBMP=new QPixmap("cuttle/c1.bmp");
-    firing=hypnosis=false;
+    defaultBMP=new QPixmap("cuttle/c1.png");
+    started=firing=hypnosis=false;
 } 
 
 
@@ -133,6 +133,7 @@ void MainWindow::keyReleaseEvent(QKeyEvent* e){
 void MainWindow::mousePressEvent(QMouseEvent* e){
    if(e->button()==Qt::RightButton){
      hypnosis=true;
+     cuttle->startHypnotizing();
    }
    else{
      firing=true;
@@ -153,6 +154,7 @@ void MainWindow::mousePressEvent(QMouseEvent* e){
 void MainWindow::mouseReleaseEvent(QMouseEvent* e){
    if(e->button()==Qt::RightButton){
      hypnosis=false;
+     cuttle->stopHypnotizing();
    }else{
      firing=false;
    }
@@ -225,7 +227,8 @@ void MainWindow::populate(){
  }
  
  if(level%(1000/mod)==0){
-   Dolphin* dolphin=new Dolphin(defaultBMP, WINDOW_MAX_X+250,rand()%WINDOW_MAX_Y);
+   Dolphin* dolphin=new Dolphin(
+   defaultBMP, WINDOW_MAX_X+250,rand()%WINDOW_MAX_Y);
    scene->addItem(dolphin);
    dolphin->giveTarget(cuttle);
    things.push_back(dolphin);
@@ -277,15 +280,34 @@ void MainWindow::pausePressed(){
 }
   /** starts game*/
 void MainWindow::startPressed(){
+   
+  if(!started){
    started=true;
+   start->setText("Restart");
    health->setText(cuttle->getHealth());
    timer->start();
+  }
+  else{
+   while(!things.empty()){
+	scene->removeItem(things.back());
+	things.pop_back();
+	cuttle->setPos(*cuttlePos);
+	cuttle->bind();	
+	gameOver->setText("");
+	timer->start();
+
+   }
+   cuttle->heal(1000);
+   points=0;
+  }
 }
 /** stops game and spams game over*/
 void MainWindow::lose(){
-  timer->stop();
-  gameOver=new QLabel("GAME  OVER");  gameOver->setScaledContents(true);
-  mainVLayout->addWidget(gameOver);
+  if(timer->isActive()){
+    timer->stop();
+    gameOver=new QLabel("GAME  OVER");
+    mainVLayout->addWidget(gameOver);
+  }
 }
     /** returns score in QString format for qlabel score*/
 QString MainWindow::getScore(){

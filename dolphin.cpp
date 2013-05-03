@@ -11,19 +11,12 @@ Dolphin::Dolphin(QPixmap* p,int nx,int ny): Thing(p,nx,ny)
   vx=rand()%5+12;
   vy=rand()%10+5;
   for(int i=1;i<9;i++){
-    QString fn="dolphin/d";fn.append(QString::number(i));fn.append(".bmp");
+    QString fn="dolphin/d";fn.append(QString::number(i));fn.append(".png");
     QPixmap* t=new QPixmap(fn);
     t=new QPixmap(t->scaled(200,80));
     setPixmap(*t);
     state.push_back(t);
-  }/*
-  for(int i=1;i<6;i++){
-    QString fn="cuttle/c";fn.append(QString::number(i));fn.append(".bmp");
-    QPixmap p(fn);
-    QPixmap* t=new QPixmap(p.scaled(200,80));
-    setPixmap(*t);
-    state.push_back(t);
-  }*/
+  }
  setZValue(5);
  health=100;
  hasTarget=false;
