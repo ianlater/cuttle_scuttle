@@ -22,8 +22,10 @@ void Scores::give(QString name,int score){
   name.append(" ");
   name.append(QString::number(score)); 
  if(name!=results_[score]){
-  if(results_[score]=="")  scores_.push(score);
-  results_[score]=name;
+  if(results_[score]==""){
+    scores_.push(score);
+    results_[score]=name;
+   }
  }
 }
 /** reads in scores from file specified in constructor paramaters*/

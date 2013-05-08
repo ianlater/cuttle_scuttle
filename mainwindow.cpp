@@ -93,9 +93,10 @@ void MainWindow::show() {
      /** Destructor. Removes scene and view*/
 MainWindow::~MainWindow()
 {
-
+    rankingsPressed();
     delete scene;
     delete view;
+
 }
     /** handles a key being pressed
          * @param e is instance of the key event
