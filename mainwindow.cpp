@@ -330,7 +330,7 @@ QString MainWindow::getScore(){
 }
 /** displays rankings*/
 void MainWindow::rankingsPressed(){
-
+  rank=new Scores("rankings.txt");
   if(started){ 
     if(nameField->text()!=QString("")){
       QString name=nameField->text();
@@ -338,7 +338,6 @@ void MainWindow::rankingsPressed(){
       rank->give(name,points);
     }
   }
-  rank=new Scores("rankings.txt");
   rank->display();
  
 }

@@ -14,7 +14,7 @@ public:
 /** constructor*/
   Scores(const char*);
 /** destructor writes scores*/
-  ~Scores(){write();}
+  ~Scores(){}
   /** gives score to Score class for processing*/
   void give(QString,int);
   /** writes scores*/

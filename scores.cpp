@@ -64,8 +64,9 @@ void Scores::display(){
   while(!storage.empty()){
     scores_.push(storage.top());
     storage.pop();
-  }
-  view->show();
+  } 
   write();
+  view->show();
+
 }
 
