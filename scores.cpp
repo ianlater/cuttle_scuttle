@@ -7,18 +7,24 @@
 Scores::Scores(const char* fn){
   fn_=fn;
   scene = new QGraphicsScene();
-  view = new QGraphicsView( scene ); 
+  view = new QGraphicsView( scene );   
+  list=new QListWidget();
+  scene->addWidget(list);
   read();
 }
   /** gives score to Score class for processing
   * @param name is the name of the player
   * @param score is the players score
+  * **In case of a tie, recent player takes place**
   */
-void Scores::give(QString name,int score){
-  scores_.push(score);
+void Scores::give(QString name,int score){ 
+
   name.append(" ");
-  name.append(QString::number(score));
+  name.append(QString::number(score)); 
+ if(name!=results_[score]){
+  if(results_[score]=="")  scores_.push(score);
   results_[score]=name;
+ }
 }
 /** reads in scores from file specified in constructor paramaters*/
 void Scores::read(){
@@ -53,8 +59,7 @@ void Scores::write(){
 }
   /** displays scores*/
 void Scores::display(){
-  list=new QListWidget();
-  scene->addWidget(list);
+  list->clear();
   std::priority_queue<int> storage;
   while(!scores_.empty()){
     storage.push(scores_.top());
@@ -67,6 +72,6 @@ void Scores::display(){
   } 
   write();
   view->show();
-
+  
 }
 

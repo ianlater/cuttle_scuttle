@@ -79,7 +79,7 @@ MainWindow::MainWindow()  {
     backgrounds.push_back(t);
   }
   scene->setBackgroundBrush(QBrush(*(backgrounds[0])));
-
+  rank=new Scores("rankings.txt");
 } 
 
 
@@ -330,7 +330,7 @@ QString MainWindow::getScore(){
 }
 /** displays rankings*/
 void MainWindow::rankingsPressed(){
-  rank=new Scores("rankings.txt");
+
   if(started){ 
     if(nameField->text()!=QString("")){
       QString name=nameField->text();
