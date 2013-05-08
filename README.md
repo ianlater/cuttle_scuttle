@@ -1,24 +1,25 @@
 # Game - Programming Assignments Private Repository
 ### Student Information
-  + Name: Tommy Trojan
-  + USC Email: ttrojan@usc.edu
-  + USC ID: 0123456789
+  + Name: Ian Later
+  + USC Email: later@usc.edu
+  + USC ID: 2847747070
 
 ### Game Information
-  + Game Name: myAwsomeGame
-  + Game Description: One sentence game description
+  + Game Name: cuttle_scuttle
+  + Game Description: One cuttlefish venturing from safety to rescue is girlfriend from a chinese restaurant.
   + [Game Design Doc](GameDesignDoc.md)
+  + W,A,S,D to move, hold right mouse button to hypnotize small fish, left click to shoot. Watch out for dolphins,whales and fishooks!
 
 
 ### Compile & Run Instructions
 The grader should use the following procedure to compile and run the code:
 ```shell
 #Compile Instructions
-echo "Write command here"
+qmake -project => qmake => make
 #Doxygen Instructions
-echo "Write command here"
+doxygen -g config.txt 
 #Command to run
-echo "Write command here"
+./game_later
 ```
 
 ### Screenshots -- [Optional]

@@ -47,9 +47,13 @@ MainWindow::MainWindow()  {
     connect(pause,SIGNAL(clicked()),this,SLOT(pausePressed()));
     exit=new QPushButton("Quit");
     connect(exit,SIGNAL(clicked()),qApp,SLOT(quit()));
+    rankings=new QPushButton("Rankings/Submit Score");
+    connect(rankings,SIGNAL(clicked()),this,SLOT(rankingsPressed()));
     topHLayout->addWidget(start);
     topHLayout->addWidget(pause);
+    topHLayout->addWidget(rankings);
     topHLayout->addWidget(exit);
+    
     health=new QLabel("Health: ");
     topHLayout->addWidget(health);
     score=new QLabel("SCORE: ");
@@ -59,7 +63,7 @@ MainWindow::MainWindow()  {
     nameField=new QLineEdit();
     player->addRow(name,nameField);
     topHLayout->addLayout(player);
-    
+    gameOver=new QLabel("GAME  OVER");
          
     pause->resize(40,20);
     mainVLayout->addLayout(topHLayout);
@@ -69,6 +73,13 @@ MainWindow::MainWindow()  {
     multiplier=mod=1;
     defaultBMP=new QPixmap("cuttle/c1.png");
     started=firing=hypnosis=false;
+  for(int i=1;i<4;i++){
+    QString fn="backgrounds/b";fn.append(QString::number(i));fn.append(".png");
+    QPixmap* t=new QPixmap(fn);
+    backgrounds.push_back(t);
+  }
+  scene->setBackgroundBrush(QBrush(*(backgrounds[0])));
+
 } 
 
 
@@ -270,6 +281,7 @@ void MainWindow::populate(){
  }
  level++;
  if(level%10000==0) mod++;
+ scene->setBackgroundBrush(QBrush(*(backgrounds[mod-1])));
 }
   /** pauses or resumes game*/
 void MainWindow::pausePressed(){
@@ -293,10 +305,11 @@ void MainWindow::startPressed(){
 	things.pop_back();
 	cuttle->setPos(*cuttlePos);
 	cuttle->bind();	
-	gameOver->setText("");
+	mod=1;
 	timer->start();
 
-   }
+   }	
+   gameOver->setText(" ");
    cuttle->heal(1000);
    points=0;
   }
@@ -305,7 +318,7 @@ void MainWindow::startPressed(){
 void MainWindow::lose(){
   if(timer->isActive()){
     timer->stop();
-    gameOver=new QLabel("GAME  OVER");
+    gameOver->setText("GAME   OVER");
     mainVLayout->addWidget(gameOver);
   }
 }
@@ -314,5 +327,19 @@ QString MainWindow::getScore(){
     QString s("SCORE: ");
     s.append(QString::number(points));
     return s;
+}
+/** displays rankings*/
+void MainWindow::rankingsPressed(){
+
+  if(started){ 
+    if(nameField->text()!=QString("")){
+      QString name=nameField->text();
+      name.replace(QString(" "),QString("_"));
+      rank->give(name,points);
+    }
+  }
+  rank=new Scores("rankings.txt");
+  rank->display();
+ 
 }
 

@@ -75,8 +75,8 @@ void Cuttle::hitByWhale(int* vel){
 }
 /** gives cuttle hooks velocity and sets catch to true*/
 void Cuttle::catchHook(int* vel){
-  velocity_[0]=-vel[0];  
-  velocity_[1]=-vel[1];
+  velocity_[0]=vel[0];  
+  velocity_[1]=vel[1];
   caught=true;  
 }
 /** decrements health by @param damage*/

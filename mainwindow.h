@@ -21,6 +21,7 @@
 #include "thing.h"
 #include "cuttle.h"
 #include <QMainWindow>
+#include "scores.h"
 
 class GraphicWindow;
 
@@ -85,6 +86,8 @@ private:
     QPushButton* start; 
     /** button to pause game*/   
     QPushButton* pause;
+    /** button to see highscores*/
+    QPushButton* rankings;
     /** button to stop playing*/
     QPushButton* exit;
     /** whether or not game has started*/
@@ -111,6 +114,10 @@ private:
     QString getScore();
      /** stops game and spams game over*/    
     void lose();
+    /** for displaying and writing rankings files*/
+    Scores* rank;
+    /** vector of background imags*/
+    std::vector<QPixmap*> backgrounds;
 public slots:
   /** animates all the Things*/
   void animate();
@@ -122,6 +129,8 @@ public slots:
   void pausePressed();
   /** starts game*/
   void startPressed();
+  /** shows rankings*/
+  void rankingsPressed();
 
 };
 
