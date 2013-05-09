@@ -22,5 +22,5 @@ doxygen -g config.txt
 ./game_later
 ```
 
-### Screenshots -- [Optional]
+### Screenshots 
 
